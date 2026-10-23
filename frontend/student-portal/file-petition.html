@@ -16,6 +16,7 @@
         type="text"
         id="petition-title"
         name="title"
+        maxlength="100"
         required
     >
 
@@ -28,10 +29,28 @@
         <option value="Other">Other</option>
     </select>
 
+    <div>
+    <input
+        type="checkbox"
+        id="anonymous"
+        name="anonymous"
+    >
+    <label for="anonymous">Submit anonymously</label>
+</div>
+
+<label for="petition-evidence">Supporting Evidence (optional)</label>
+<input
+    type="file"
+    id="petition-evidence"
+    name="evidence"
+    accept="image/*,.pdf"
+>
+
     <label for="petition-description">Description</label>
     <textarea
         id="petition-description"
         name="description"
+        maxlength="2000"
         required
     ></textarea>
 
