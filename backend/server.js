@@ -2,6 +2,7 @@
 import express from "express";
 import complaintRoutes from "./routes/complaintRoutes.js";
 import mongoose from "mongoose";
+import { fileURLToPath } from "node:url";
 
 const app = express();
 
@@ -9,11 +10,17 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+app.use("/api/complaints", complaintRoutes);
+
+const frontendPath = fileURLToPath(
+    new URL("../frontend/student-portal", import.meta.url)
+);
+
+app.use(express.static(frontendPath));
+
 app.get("/", (req, res) => {
     res.send("Vishanti Backend is running!");
 });
-
-app.use("/api/complaints", complaintRoutes);
 
 async function startServer(){
     try{
