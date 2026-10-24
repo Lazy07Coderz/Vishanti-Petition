@@ -3,63 +3,69 @@ petitionList.innerHTML = "";
 
 console.log(petitionList);
 
-const petitions = [
-  {
-    id: "VP-001",
-    title: "Hostel maintenance issue",
-    category: "Hostel & Facilities",
-    priority: "Medium",
-    status: "IN_REVIEW"
-  },
-  {
-    id: "VP-002",
-    title: "Request for library hours extension",
-    category: "Library",
-    priority: "High",
-    status: "RESOLVED"
-  }
-];
+let petitions = [];
 
-const totalPetitions = petitions.length;
+async function loadPetitions() {
+    try {
+        const response = await fetch("/api/complaints");
 
-console.log(totalPetitions);
+        if (!response.ok) {
+            throw new Error("Failed to load petitions");
+        }
 
-const totalPetitionsElement = document.querySelector("#total-petitions");
+        const data = await response.json();
+        console.log("API complaint count:", data.length);
+        console.log("API complaints:", data);
+        petitions = data.map(function(complaint) {
+            return {
+                id: complaint._id,
+                title: complaint.title,
+                category: complaint.category,
+                description: complaint.description,
+                priority: complaint.priority || "Not specified",
+                status: complaint.status
+            };
+        });
 
-totalPetitionsElement.textContent = totalPetitions;
+        renderPetitions();
+        updateStatistics();
 
-const underReview = petitions.filter(function(petition) {
-    return petition.status === "IN_REVIEW";
-}).length;
+    } catch (error) {
+        console.error("Error loading petitions:", error);
+    }
+}
 
-console.log(underReview); 
+function updateStatistics() {
+    const totalPetitions = petitions.length;
 
-const underReviewElement = document.querySelector("#under-review");
+    document.querySelector("#total-petitions").textContent =
+        totalPetitions;
 
-underReviewElement.textContent = underReview;
+    const underReview = petitions.filter(function(petition) {
+        return petition.status === "IN_REVIEW";
+    }).length;
 
-const resolved = petitions.filter(function(petition) {
-    return petition.status === "RESOLVED";
-}).length;
+    document.querySelector("#under-review").textContent =
+        underReview;
 
-console.log(resolved);
+    const resolved = petitions.filter(function(petition) {
+        return petition.status === "RESOLVED";
+    }).length;
 
-const resolvedElement = document.querySelector("#resolved-count");
+    document.querySelector("#resolved-count").textContent =
+        resolved;
 
-resolvedElement.textContent = resolved;
+    const awaitingAction = petitions.filter(function(petition) {
+        return petition.status === "FILED" ||
+               petition.status === "ASSIGNED";
+    }).length;
 
-const awaitingAction = petitions.filter(function(petition) {
-    return petition.status === "FILED" ||
-           petition.status === "ASSIGNED";
-}).length;
-
-console.log(awaitingAction);
-
-const awaitingActionElement = document.querySelector("#awaiting-action");
-
-awaitingActionElement.textContent = awaitingAction; 
+    document.querySelector("#awaiting-action").textContent =
+        awaitingAction;
+}
 
 function renderPetitions() {
+petitionList.innerHTML = "";    
 petitions.forEach(function(petition) {
 
 const petitionCard = document.createElement("div");
@@ -68,6 +74,13 @@ const petitionDetails = document.createElement("div");
 petitionDetails.classList.add("petition-details");
 
 petitionCard.classList.add("petition-item");
+
+petitionCard.style.cursor = "pointer";
+
+petitionCard.addEventListener("click", function() {
+    window.location.href =
+        `petition-details.html?id=${encodeURIComponent(petition.id)}`;
+});
 
 const petitionReference = document.createElement("p");
 petitionReference.textContent = `Reference: ${petition.id}`;
@@ -112,7 +125,7 @@ petitionList.appendChild(petitionCard);
 });
 }
 
-renderPetitions();
+
 
 function getStatusLabel(status) {
     if (status === "FILED") {
@@ -149,3 +162,5 @@ function getStatusClass(status) {
 
     return "";
 }
+
+loadPetitions();

@@ -66,11 +66,12 @@ form.addEventListener("submit", async function(event) {
     );
 
     try {
+    console.log("Submitting petition...");
         const response = await fetch("/api/complaints", {
             method: "POST",
             body: formData
         });
-
+        
         const data = await response.json();
 
         if (!response.ok) {
@@ -83,8 +84,11 @@ form.addEventListener("submit", async function(event) {
 
     } catch (error) {
         console.error(error);
-
+        alert(error.message || "Something went wrong. Please try again.");
     } finally {
         submitButton.disabled = false;
     }
 });
+
+
+        

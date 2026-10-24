@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    background-color: #f5f6fa;
+    color: #222;
+}
+
+a {
+    color: #2457c5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+section {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+h2 {
+    color: #1e293b;
+    margin-top: 0;
+}
+
+#petition-info p {
+    line-height: 1.6;
+}
+
+#petition-timeline ol {
+    padding-left: 25px;
+}
+
+#petition-timeline li {
+    margin-bottom: 16px;
+}
+
+#petition-timeline li p {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+#petition-audit p {
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 16px;
+    }
+
+    section {
+        padding: 15px;
+    }
+}
