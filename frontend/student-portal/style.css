@@ -1,0 +1,177 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+.sidebar {
+    background-color: #292144;
+    width: 250px;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.sidebar p {
+    font-size: 11px;
+    color: #b8aecf;
+}
+
+.sidebar h4 {
+    margin-top: 40px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #b8aecf;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 12px;
+    color: #e1dcea;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.sidebar nav a:hover {
+    background-color: #44365f;
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+main {
+    margin-left: 250px;
+    padding: 30px;
+    background-color: #f7f6f3;
+}
+
+.welcome-heading {
+    font-size: 30px;
+    color: #292637;
+    margin-bottom: 12px;
+}
+
+.welcome-subtitle {
+    color: #85818f;
+    font-size: 13px;
+}
+
+main section {
+    margin-bottom: 30px;
+}
+
+.welcome-banner {
+    background-color: #ece6f5;
+    padding: 24px;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.welcome-banner h3 {
+    color: #514271;
+    margin-bottom: 10px;
+}
+
+.welcome-banner p {
+    color: #827795;
+    font-size: 13px;
+}
+
+.section-heading {
+    font-size: 11px;
+    color: #827d89;
+    letter-spacing: 1.5px;
+    margin-top: 30px;
+}
+
+.stat-card {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #e8e5ec;
+    box-shadow: 0 2px 8px rgba(41, 33, 68, 0.04);
+    border-radius: 12px;
+    min-height: 100px;
+    transition: transform 0.2s ease;
+}
+
+.stat-card h2 {
+    font-size: 30px;
+    margin-top: 14px;
+}
+
+.stat-card p {
+    color: #85818f;
+    font-size: 12px;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.petition-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #e8e5ec;
+    border-radius: 12px;
+    gap: 16px;
+    transition: border-color 0.2s ease;
+    cursor: pointer;
+}
+
+.petition-item h3 {
+    color: #292637;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.petition-item p {
+    color: #85818f;
+    font-size: 12px;
+    margin-top: 0;
+}
+
+.petition-status {
+    background-color: #ece6f5;
+    color: #514271;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.petition-list {
+    margin-top : 16px;
+}
+
+.petition-item:hover {
+    border-color: #c9bddf;
+}
+
+.status-review {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-resolved {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
