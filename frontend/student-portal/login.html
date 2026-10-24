@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Vishanti Petition</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <header class="brand">
+        <div>
+            <h2>Vishanti Petition</h2>
+            <p>LAZY CODERZ / 2026</p>
+        </div>
+    </header>
+
+    <main class="login-layout">
+
+        <section class="hero">
+            <p class="eyebrow">A VOICE. A RECORD. A RESOLUTION.</p>
+
+            <h1>
+                Your concerns.<br>
+                A clearer path<br>
+                to <span>resolution.</span>
+            </h1>
+
+            <p class="hero-description">
+                A campus that listens starts with a process you can trust.
+                File a petition, follow its journey, and hold every step accountable.
+            </p>
+        </section>
+
+        <section class="auth-card">
+
+            <div class="auth-tabs">
+                <button type="button" id="signin-tab" class="active">
+                    Sign in
+                </button>
+                <button type="button" id="signup-tab">
+                    Create account
+                </button>
+            </div>
+
+            <h2 id="form-heading">Welcome to your sanctum.</h2>
+
+            <p id="form-description">
+                Sign in to manage petitions and follow their progress.
+            </p>
+
+            <form id="auth-form">
+
+                <label for="email">Email address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    autocomplete="email"
+                    required
+                >
+
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    minlength="10"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <p class="password-hint">
+                    At least 10 characters. Keep your password private.
+                </p>
+
+                <div id="signup-fields" hidden>
+                    <label for="name">Full name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        autocomplete="name"
+                    >
+                </div>
+
+                <button type="submit" class="submit-button" id="submit-button">
+                    Enter your dashboard →
+                </button>
+
+                <p id="form-message" role="status" aria-live="polite"></p>
+
+            </form>
+
+            <p class="privacy-note">
+                Private by design. Every change leaves a verifiable record.
+            </p>
+
+        </section>
+
+    </main>
+
+    <script src="login.js"></script>
+</body>
+</html>
