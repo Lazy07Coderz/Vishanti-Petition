@@ -1,0 +1,263 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f7f4;
+    color: #282638;
+    min-height: 100vh;
+    padding: 0 12.7%;
+}
+
+/* Brand header */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 38px;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee9ff;
+    color: #6048ac;
+    font-size: 27px;
+    border-radius: 12px;
+}
+
+.brand h2 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.brand p {
+    margin-top: 4px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #8a829f;
+    font-weight: 700;
+}
+
+/* Main layout */
+.login-layout {
+    min-height: calc(100vh - 100px);
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    align-items: center;
+    gap: 70px;
+    padding: 55px 0 30px;
+}
+
+/* Left side */
+.hero {
+    max-width: 520px;
+}
+
+.eyebrow {
+    color: #8b80a8;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 26px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 4.1vw, 66px);
+    line-height: 1.1;
+    letter-spacing: -2.5px;
+    font-weight: 800;
+}
+
+.hero h1 span {
+    color: #6048ac;
+}
+
+.hero-description {
+    margin-top: 42px;
+    max-width: 510px;
+    color: #85828e;
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+/* Login card */
+.auth-card {
+    width: 100%;
+    max-width: 490px;
+    justify-self: end;
+    background-color: #fff;
+    border: 1px solid #e8e5ed;
+    border-radius: 22px;
+    padding: 36px;
+}
+
+/* Tabs */
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.auth-tabs button {
+    min-height: 48px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f2eff7;
+    color: #777183;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.auth-tabs button.active {
+    background-color: #6048ac;
+    color: #fff;
+}
+
+/* Form heading */
+.auth-card h2 {
+    font-size: 21px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+#form-description {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #85828e;
+    margin-bottom: 20px;
+}
+
+/* Form controls */
+#auth-form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+#auth-form input {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 12px;
+    border: 1px solid #dedbe5;
+    border-radius: 9px;
+    background-color: #fff;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+#auth-form input:focus {
+    outline: none;
+    border-color: #6048ac;
+    box-shadow: 0 0 0 3px rgba(96, 72, 172, 0.12);
+}
+
+.password-hint {
+    margin-top: -8px;
+    margin-bottom: 34px;
+    color: #85828e;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Submit button */
+.submit-button {
+    width: 100%;
+    min-height: 48px;
+    border: none;
+    border-radius: 9px;
+    background-color: #6048ac;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #4d3894;
+}
+
+.submit-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* Messages and footer */
+#form-message {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.privacy-note {
+    margin-top: 12px;
+    color: #85828e;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* Responsive layout */
+@media (max-width: 1000px) {
+    body {
+        padding: 0 6%;
+    }
+
+    .login-layout {
+        gap: 35px;
+    }
+
+    .auth-card {
+        padding: 28px;
+    }
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 0 22px;
+    }
+
+    .brand {
+        padding-top: 24px;
+    }
+
+    .login-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding-top: 55px;
+    }
+
+    .hero h1 {
+        font-size: clamp(38px, 10vw, 54px);
+    }
+
+    .eyebrow {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+
+    .hero-description {
+        margin-top: 22px;
+        font-size: 15px;
+    }
+
+    .auth-card {
+        max-width: none;
+        padding: 25px 22px;
+        justify-self: stretch;
+    }
+}
