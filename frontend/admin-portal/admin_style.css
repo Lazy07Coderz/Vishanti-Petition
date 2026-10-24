@@ -1,0 +1,329 @@
+/* Basic styling */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 5px;
+    font-family: Arial, sans-serif;
+    background: #58d596;
+    color: #132136;
+}
+
+.app-shell {
+    display: flex;
+    min-height: 98vh;
+    background: #f8f7f2;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    padding: 25px 20px;
+    background: #291d46;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand-sparkle {
+    color: #a986ff;
+    font-size: 24px;
+}
+
+.brand-text h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.brand-text p {
+    font-size: 12px;
+    color: #aaa4c5;
+}
+
+/* Navigation links */
+.sidebar-nav {
+    margin-top: 30px;
+}
+
+.sidebar-section-label {
+    font-size: 12px;
+    color: #aaa4c5;
+    margin-bottom: 15px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 12px;
+    margin-bottom: 5px;
+    color: #e3def1;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #403064;
+    color: white;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 25px;
+    border-top: 1px solid #403354;
+}
+
+.sidebar-emblem {
+    width: 95px;
+    height: 95px;
+    border: 1px solid #594676;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.emblem-diamond {
+    width: 65px;
+    height: 65px;
+    border: 1px solid #594676;
+    transform: rotate(45deg);
+    position: absolute;
+}
+
+.emblem-star {
+    color: #a887ff;
+    font-size: 25px;
+}
+
+.sidebar-motto h3 {
+    font-size: 14px;
+}
+
+.sidebar-motto p {
+    color: #aaa4c5;
+    line-height: 1.5;
+    font-size: 13px;
+}
+
+.sidebar-credit {
+    color: #82799f;
+    font-size: 10px;
+    margin-top: 20px;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    padding: 25px 45px;
+    min-width: 0;
+}
+
+/* Top bar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.breadcrumb {
+    color: #65758d;
+}
+
+.breadcrumb strong {
+    color: #132136;
+}
+
+.account-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    background: #e5e8ee;
+    border-radius: 50%;
+    padding: 12px;
+}
+
+.account-name {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.account-name strong {
+    font-size: 13px;
+}
+
+.account-name span {
+    color: #65758d;
+}
+
+.sign-out-button,
+.refresh-button {
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid #d9dee7;
+    border-radius: 8px;
+}
+
+/* Welcome heading */
+.welcome-section {
+    margin-bottom: 30px;
+}
+
+.eyebrow,
+.section-label {
+    color: #60728d;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.welcome-section h1 {
+    font-size: 34px;
+    margin: 12px 0;
+}
+
+.welcome-description {
+    color: #65758d;
+    font-size: 15px;
+}
+
+/* Lavender banner */
+.message-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    margin-bottom: 35px;
+    background: #eee8ff;
+    border-radius: 15px;
+}
+
+.message-banner h2 {
+    color: #4e20a9;
+    font-size: 18px;
+}
+
+.message-banner p {
+    color: #642fe0;
+}
+
+.banner-sparkle {
+    color: #8b60f5;
+    font-size: 32px;
+}
+
+/* Statistics cards */
+.snapshot-section {
+    margin-bottom: 35px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 12px;
+}
+
+.stat-label {
+    color: #65758d;
+    font-size: 13px;
+}
+
+.stat-number {
+    font-size: 34px;
+    margin: 15px 0;
+}
+
+.success-number {
+    color: #059b6b;
+}
+
+.stat-note {
+    color: #9aa7bc;
+    font-size: 11px;
+}
+
+/* Petitions panel */
+.petitions-panel {
+    padding: 24px;
+    background: white;
+    border-radius: 15px;
+}
+
+.panel-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.panel-heading-row h2 {
+    font-size: 18px;
+}
+
+.panel-heading-row p {
+    color: #65758d;
+}
+
+/* Search and filters */
+.filter-form {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr auto;
+    gap: 10px;
+}
+
+.filter-form input,
+.filter-form select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d9dee7;
+    border-radius: 8px;
+    background: white;
+    color: #40516a;
+}
+
+.search-button {
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #eee8ff;
+    color: #5522bd;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background: #e2d7ff;
+}
+
+/* Hidden labels for accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
