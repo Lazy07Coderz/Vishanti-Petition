@@ -3,12 +3,15 @@ import express from "express";
 import complaintRoutes from "./routes/complaintRoutes.js";
 import mongoose from "mongoose";
 import { fileURLToPath } from "node:url";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.use("/api/auth/", authRoutes);
 
 app.use("/api/complaints", complaintRoutes);
 
