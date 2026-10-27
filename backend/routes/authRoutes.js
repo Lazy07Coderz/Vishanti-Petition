@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import authenticate from "../middleware/authenticate.js";
 
 const router = Router();
 
@@ -123,6 +124,13 @@ router.post("/login", async (req, res) => {
             message: "Login failed"
         });
     }
+});
+
+
+router.get("/me", authenticate, (req, res) => {
+    res.status(200).json({
+        user: req.user
+    });
 });
 
 

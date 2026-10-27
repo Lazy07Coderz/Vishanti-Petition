@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { rm } from "node:fs/promises";
 import Complaint from "../models/Complaint.js";
 import { uploadEvidence } from "../middleware/upload.js";
+import authenticate from "../middleware/authenticate.js";
 
 const router = Router();
 
@@ -44,7 +45,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/", uploadEvidence, async (req, res) => {
+router.post("/", authenticate, uploadEvidence, async (req, res) => {
     try {
         const { title, category, description } = req.body;
 
@@ -57,7 +58,8 @@ router.post("/", uploadEvidence, async (req, res) => {
             category,
             anonymous,
             description,
-            evidence: req.file?.filename ?? null
+            evidence: req.file?.filename ?? null,
+            student: req.user.id
         });
 
         res.status(201).json(complaint);

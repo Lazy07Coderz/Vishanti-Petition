@@ -67,8 +67,12 @@ form.addEventListener("submit", async function(event) {
 
     try {
     console.log("Submitting petition...");
+        const token = sessionStorage.getItem("authToken")
         const response = await fetch("/api/complaints", {
             method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             body: formData
         });
         
