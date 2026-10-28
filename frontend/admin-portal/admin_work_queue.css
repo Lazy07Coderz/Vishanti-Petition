@@ -1,0 +1,534 @@
+/* =========================================
+   BASIC SETTINGS
+========================================= */
+
+.queue-page button,
+.queue-page input,
+.queue-page select,
+.queue-page textarea {
+    font: inherit;
+}
+
+.queue-page button {
+    cursor: pointer;
+}
+
+.queue-page :focus-visible {
+    outline: 3px solid #8b60f5;
+    outline-offset: 3px;
+}
+
+/* =========================================
+   PETITIONS PANEL
+========================================= */
+
+.queue-page .petitions-panel {
+    padding: 0;
+    border: 1px solid #e7e5eb;
+    overflow: hidden;
+}
+
+.queue-page .panel-heading-row {
+    margin: 0;
+    padding: 24px;
+    gap: 20px;
+    border-bottom: 1px solid #eceaf0;
+}
+
+.queue-page .panel-heading-row h2 {
+    margin: 0 0 8px;
+}
+
+.queue-page .panel-heading-row p {
+    margin: 0;
+    font-size: 13px;
+}
+
+.queue-page .refresh-button {
+    flex-shrink: 0;
+    font-size: 13px;
+}
+
+.queue-page .filter-form {
+    padding: 20px 24px;
+    border-bottom: 1px solid #eceaf0;
+}
+
+.queue-page .queue-feedback {
+    margin: 0;
+    padding: 0 24px;
+    color: #65758d;
+    font-size: 12px;
+}
+
+.queue-page .queue-feedback:not(:empty) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.queue-page .demo-note {
+    color: #65758d;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   PETITIONS TABLE
+========================================= */
+
+.queue-page .table-scroll {
+    overflow-x: auto;
+}
+
+.queue-page .queue-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.queue-page .queue-table th {
+    padding: 16px 24px;
+    background: #fcfbfe;
+    color: #827b8c;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.queue-page .queue-table th:first-child {
+    width: 40%;
+}
+
+.queue-page .queue-table td {
+    padding: 22px 24px;
+    border-bottom: 1px solid #f0eef3;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.queue-page .queue-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.queue-page .queue-table tbody tr:hover {
+    background: #faf8ff;
+}
+
+.queue-page .petition-link {
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #291d46;
+    font-weight: 600;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.queue-page .petition-link:hover {
+    color: #642fe0;
+    text-decoration: underline;
+}
+
+.queue-page .row-note {
+    display: block;
+    margin-top: 7px;
+    color: #8a8594;
+    font-size: 11px;
+}
+
+.queue-page .empty-row {
+    text-align: center;
+    color: #65758d;
+}
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+
+.queue-page .status-badge {
+    display: inline-block;
+    padding: 7px 9px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.queue-page .status-filed {
+    background: #f1eff8;
+    color: #74698c;
+}
+
+.queue-page .status-assigned {
+    background: #eaf2fa;
+    color: #426b94;
+}
+
+.queue-page .status-in-review {
+    background: #eee8fb;
+    color: #7856b3;
+}
+
+.queue-page .status-escalated {
+    background: #fff0e7;
+    color: #a26940;
+}
+
+.queue-page .status-resolved,
+.queue-page .status-closed {
+    background: #e7f3ec;
+    color: #408263;
+}
+
+/* =========================================
+   PRIORITY INDICATORS
+========================================= */
+
+.queue-page .priority {
+    color: #837a90;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.queue-page .priority::before {
+    content: "●";
+    margin-right: 7px;
+    color: #b5a1cc;
+    font-size: 9px;
+}
+
+.queue-page .priority-high::before,
+.queue-page .priority-urgent::before {
+    color: #cb976d;
+}
+
+/* =========================================
+   PETITION DIALOG
+========================================= */
+
+.queue-page .petition-dialog {
+    width: min(900px, calc(100% - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 64px);
+    padding: 0;
+    border: 1px solid #e9e5ee;
+    border-radius: 17px;
+    background: #fff;
+    color: #291d46;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    box-shadow: 0 24px 80px #1d143444;
+}
+
+.queue-page .petition-dialog::backdrop {
+    background: #241a3a80;
+    backdrop-filter: blur(3px);
+}
+
+/* Stop the background page from scrolling while the dialog is open. */
+.queue-page:has(.petition-dialog[open]) {
+    overflow: hidden;
+}
+
+.queue-page .dialog-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 30px;
+    border-bottom: 1px solid #eceaf0;
+    background: #fff;
+}
+
+.queue-page .dialog-header .eyebrow {
+    margin: 6px 0 12px;
+    color: #9280af;
+    font-size: 11px;
+}
+
+.queue-page .dialog-header h2 {
+    margin: 0;
+    font-size: 23px;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.queue-page .dialog-close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 52px;
+    border: 1px solid #e7e5eb;
+    border-radius: 10px;
+    background: #fff;
+    color: #8a8594;
+    font-size: 23px;
+}
+
+.queue-page .dialog-close:hover {
+    background: #f5f1fb;
+}
+
+.queue-page .dialog-body {
+    padding: 28px 30px;
+}
+
+.queue-page .petition-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    color: #81798c;
+    font-size: 12px;
+}
+
+.queue-page .petition-description {
+    margin: 24px 0 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.queue-page .petition-dates {
+    color: #8a8594;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* =========================================
+   AUDIT BANNER
+========================================= */
+
+.queue-page .audit-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin: 30px 0;
+    padding: 16px;
+    border-radius: 8px;
+    background: #eaf3ee;
+    color: #527b66;
+    font-size: 12px;
+}
+
+.queue-page .audit-download {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #796297;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+/* =========================================
+   PETITION TIMELINE
+========================================= */
+
+.queue-page .journey-section h3,
+.queue-page .update-form h3 {
+    margin: 0 0 22px;
+    font-size: 16px;
+}
+
+.queue-page .audit-timeline {
+    margin: 0 0 24px;
+    padding: 0 0 0 8px;
+    list-style: none;
+}
+
+.queue-page .audit-event {
+    position: relative;
+    padding: 0 0 28px 25px;
+    border-left: 1px solid #e4dfeb;
+    overflow-wrap: anywhere;
+}
+
+.queue-page .audit-event::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: -6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #b19bce;
+    box-shadow: 0 0 0 4px #fff;
+}
+
+.queue-page .audit-event h4 {
+    margin: 0 0 12px;
+    font-size: 13px;
+}
+
+.queue-page .event-meta {
+    color: #8a8594;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.queue-page .event-reason {
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* =========================================
+   UPDATE FORM
+========================================= */
+
+.queue-page .update-form {
+    padding: 24px 20px;
+    border-radius: 12px;
+    background: #f7f3fb;
+}
+
+.queue-page .update-form label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.queue-page .update-form select,
+.queue-page .update-form textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #e0dce7;
+    border-radius: 8px;
+    background: #fff;
+    color: #40516a;
+}
+
+.queue-page .update-form textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.queue-page .form-help {
+    color: #8a8594;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.queue-page .save-update {
+    padding: 15px 20px;
+    border: 0;
+    border-radius: 9px;
+    background: #6147a8;
+    color: #fff;
+    font-weight: 600;
+}
+
+.queue-page .save-update:hover {
+    background: #4e378e;
+}
+
+.queue-page .update-feedback {
+    margin: 12px 0 0;
+    color: #527b66;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.queue-page .update-feedback:empty {
+    display: none;
+}
+
+/* =========================================
+   RESPONSIVE ADJUSTMENTS
+========================================= */
+
+@media (max-width: 1100px) {
+    .queue-page .sidebar {
+        width: 240px;
+    }
+
+    .queue-page .main-content {
+        padding: 25px;
+    }
+
+    .queue-page .filter-form {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .queue-page .app-shell {
+        flex-direction: column;
+    }
+
+    .queue-page .sidebar {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .queue-page .sidebar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 12px;
+    }
+
+    .queue-page .sidebar-section-label,
+    .queue-page .sidebar-footer {
+        display: none;
+    }
+
+    .queue-page .nav-link {
+        margin: 0;
+        padding: 10px;
+    }
+
+    .queue-page .main-content {
+        padding: 22px 16px;
+    }
+
+    .queue-page .topbar {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .queue-page .welcome-section h1 {
+        font-size: 29px;
+    }
+
+    .queue-page .panel-heading-row {
+        padding: 20px 16px;
+    }
+
+    .queue-page .filter-form {
+        padding: 16px;
+    }
+
+    .queue-page .filter-form input,
+    .queue-page .filter-form .search-button {
+        grid-column: 1 / -1;
+    }
+
+    .queue-page .petition-dialog {
+        width: calc(100% - 16px);
+        max-height: calc(100dvh - 24px);
+    }
+
+    .queue-page .dialog-header,
+    .queue-page .dialog-body {
+        padding: 20px 16px;
+    }
+
+    .queue-page .dialog-header h2 {
+        font-size: 20px;
+    }
+
+    .queue-page .audit-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vishanti Petition — Notifications</title>
+
+    <!-- Existing dashboard styles -->
+    <link rel="stylesheet" href="admin_overview.css">
+
+    <!-- Reuse the existing petition dialog styles -->
+    <link rel="stylesheet" href="admin_work_queue.css">
+
+    <!-- Notification-specific styles -->
+    <link rel="stylesheet" href="admin_notifications.css">
+
+    <!-- Load shared petition logic first -->
+    <script src="admin_work_queue.js" defer></script>
+
+    <!-- Then load notification logic -->
+    <script src="admin_notifications.js" defer></script>
+</head>
+
+<!--
+    queue-page allows this page to reuse the existing
+    dialog styles from admin_work_queue.css.
+-->
+<body class="queue-page notifications-page">
+
+    <div class="app-shell">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-text">
+                    <h2>Vishanti Petition</h2>
+                    <p>LAZY CODERZ / 2026</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+
+                <p class="sidebar-section-label">
+                    YOUR SANCTUM
+                </p>
+
+                <a class="nav-link" href="admin_overview.html">
+                    <span class="nav-icon">▦</span>
+                    <span>Overview</span>
+                </a>
+
+                <a class="nav-link" href="admin_work_queue.html">
+                    <span class="nav-icon">☰</span>
+                    <span>Work queue</span>
+                </a>
+
+                <a
+                    class="nav-link active"
+                    href="admin_notifications.html"
+                    aria-current="page"
+                >
+                    <span class="nav-icon">🔔</span>
+                    <span>Notifications</span>
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <div class="sidebar-motto">
+                    <h3>Accountability, by design.</h3>
+
+                    <p>
+                        Your words matter.<br>
+                        Every action leaves a record.
+                    </p>
+                </div>
+
+                <p class="sidebar-credit">
+                    LAZY CODERZ · WEBSTER 2026
+                </p>
+
+            </div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+
+                <div class="breadcrumb">
+                    <span>Your sanctum</span>
+                    <span>/</span>
+                    <strong>Notifications</strong>
+                </div>
+
+                <div class="account-area">
+
+                    <div class="avatar">P</div>
+
+                    <div class="account-name">
+                        <strong>Portal Administrator</strong>
+                        <span>Admin</span>
+                    </div>
+
+                    <a href="../student-portal/login.html">
+                        <button class="sign-out-button" type="button">
+                            Sign out
+                        </button>
+                    </a>
+
+                </div>
+
+            </header>
+
+            <!-- HEADING AND MARK ALL READ BUTTON -->
+            <section
+                class="notification-heading"
+                aria-labelledby="notifications-heading"
+            >
+
+                <div class="welcome-section">
+                    <p class="eyebrow">
+                        YOUR VOICE, ON RECORD
+                    </p>
+
+                    <h1 id="notifications-heading">
+                        You’re in the loop.
+                    </h1>
+
+                    <p class="welcome-description">
+                        Updates, deadline reminders, and decisions in one place.
+                    </p>
+                </div>
+
+                <button
+                    class="mark-all-button"
+                    id="mark-all-read"
+                    type="button"
+                >
+                    Mark all read
+                </button>
+
+            </section>
+
+            <p
+                class="notification-feedback"
+                id="notification-feedback"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- NOTIFICATION LIST -->
+            <section aria-label="Petition notifications">
+
+                <ul
+                    class="notification-list"
+                    id="notification-list"
+                ></ul>
+
+                <noscript>
+                    <p class="demo-note">
+                        Enable JavaScript to display notifications.
+                    </p>
+                </noscript>
+
+            </section>
+
+            <p class="demo-note">
+                Sample notifications. Read states and petition updates
+                reset when this page is reloaded.
+            </p>
+
+        </main>
+
+    </div>
+
+    <!-- SHARED PETITION DIALOG -->
+    <dialog
+        class="petition-dialog"
+        id="petition-dialog"
+        aria-labelledby="petition-title"
+    >
+
+        <div class="dialog-header">
+
+            <div>
+                <p class="eyebrow" id="petition-id"></p>
+                <h2 id="petition-title"></h2>
+            </div>
+
+            <button
+                class="dialog-close"
+                id="close-petition"
+                type="button"
+                aria-label="Close petition details"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="dialog-body">
+
+            <div class="petition-meta" id="petition-meta"></div>
+
+            <p
+                class="petition-description"
+                id="petition-description"
+            ></p>
+
+            <p class="petition-dates" id="petition-dates"></p>
+
+            <!-- AUDIT INFORMATION -->
+            <div class="audit-banner">
+
+                <span id="audit-summary"></span>
+
+                <button
+                    class="audit-download"
+                    id="download-audit"
+                    type="button"
+                >
+                    Download audit JSON ↗
+                </button>
+
+            </div>
+
+            <!-- TIMELINE -->
+            <section
+                class="journey-section"
+                aria-labelledby="journey-heading"
+            >
+
+                <h3 id="journey-heading">
+                    The journey so far
+                </h3>
+
+                <ol class="audit-timeline" id="audit-timeline"></ol>
+
+            </section>
+
+            <!-- UPDATE FORM -->
+            <form class="update-form" id="petition-update">
+
+                <h3>Keep the conversation moving</h3>
+
+                <label for="petition-action">
+                    Action
+                </label>
+
+                <select id="petition-action" name="action">
+                    <option value="comment">Comment</option>
+                    <option value="Assigned">Assign</option>
+                    <option value="In Review">Move to In Review</option>
+                    <option value="Escalated">Escalate</option>
+                    <option value="Resolved">Resolve</option>
+                    <option value="Closed">Close</option>
+                </select>
+
+                <label for="decision-reason">
+                    Comment / decision reason
+                </label>
+
+                <textarea
+                    id="decision-reason"
+                    name="reason"
+                    rows="4"
+                    maxlength="2000"
+                    placeholder="Add a clear explanation for the record."
+                    required
+                ></textarea>
+
+                <p class="form-help">
+                    This demo adds updates to the current page only.
+                    Permanent records require a backend.
+                </p>
+
+                <button class="save-update" type="submit">
+                    Save update →
+                </button>
+
+                <p
+                    class="update-feedback"
+                    id="update-feedback"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+        </div>
+
+    </dialog>
+
+</body>
+
+</html>

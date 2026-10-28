@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vishanti Petition — Overview</title>
+    <link rel="stylesheet" href="admin_overview.css">
+</head>
+
+<body>
+    <!-- NICKNAME: THE APP FRAME
+         The complete dashboard lives inside this container. -->
+    <div class="app-shell">
+        <!-- =========================================
+             NICKNAME: THE PURPLE SIDEBAR
+             Contains the logo, navigation and footer.
+        ========================================== -->
+        <aside class="sidebar">
+
+            <!-- NICKNAME: BRAND NAME AND LOGO -->
+            <div class="brand">
+                <div class="brand-text">
+                    <h2>Vishanti Petition</h2>
+                    <p>LAZY CODERZ / 2026</p>
+                </div>
+
+            </div>
+            <!-- NICKNAME: SIDEBAR NAVIGATION -->
+            <nav class="sidebar-nav">
+                <p class="sidebar-section-label">
+                    YOUR SANCTUM
+                </p>
+                <a class="nav-link active" href="#overview">
+                    <span class="nav-icon">▦</span>
+                    <span>Overview</span>
+                </a>
+                <a class="nav-link" href="admin_work_queue.html">
+                    <span class="nav-icon">☰</span>
+                    <span>Work queue</span>
+                </a>
+                <a class="nav-link" href="admin_notifications.html">
+                    <span class="nav-icon">🔔</span>
+                    <span>Notifications</span>
+                </a>
+            </nav>
+            <!-- NICKNAME: SIDEBAR FOOTER
+                 Motto at the bottom. -->
+            <div class="sidebar-footer">
+                <div class="sidebar-motto">
+                    <h3>Accountability, by design.</h3>
+                    <p>
+                        Your words matter.<br>
+                        Every action leaves a record.
+                    </p>
+                </div>
+                <p class="sidebar-credit">
+                    LAZY CODERZ · WEBSTER 2026
+                </p>
+            </div>
+        </aside>
+
+        <!-- =========================================
+             NICKNAME: THE MAIN CONTENT AREA
+             Everything to the right of the sidebar.
+        ========================================== -->
+        <main class="main-content" id="overview">
+            <!-- NICKNAME: TOP BAR
+                 Breadcrumb, administrator details and sign-out. -->
+            <header class="topbar">
+
+                <div class="breadcrumb">
+                    <span>Your sanctum</span>
+                    <span class="breadcrumb-divider">/</span>
+                    <strong>Overview</strong>
+                </div>
+                <!-- NICKNAME: ADMINISTRATOR PROFILE -->
+                <div class="account-area">
+                    <div class="avatar">P</div>
+                    <div class="account-name">
+                        <strong>Portal Administrator</strong>
+                        <span>Admin</span>
+                    </div>
+                    <a href="../student-portal/login.html">
+                        <button class="sign-out-button" type="button">
+                            Sign out
+                        </button>
+                    </a>
+                </div>
+            </header>
+
+            <!-- NICKNAME: WELCOME HEADING -->
+            <section class="welcome-section">
+                <p class="eyebrow">
+                    YOUR VOICE, ON RECORD
+                </p>
+                <h1>Good to see you, Admin.</h1>
+                <p class="welcome-description">
+                    A little clarity. A little accountability.
+                    A better campus.
+                </p>
+            </section>
+
+            <!-- NICKNAME: LAVENDER MESSAGE BANNER -->
+            <section class="message-banner">
+                <div>
+                    <h2>
+                        Every concern deserves to be heard.
+                    </h2>
+                    <p>
+                        Review your queue, keep the conversation moving,
+                        and resolve concerns on time.
+                    </p>
+                </div>
+            </section>
+
+            <!-- =========================================
+                 NICKNAME: INSTITUTION-WIDE SNAPSHOT
+                 Four cards showing the dashboard statistics.
+            ========================================== -->
+            <section class="snapshot-section">
+                <h2 class="section-label">
+                    INSTITUTION-WIDE SNAPSHOT
+                </h2>
+                <!-- NICKNAME: FOUR-CARD GRID -->
+                <div class="stats-grid">
+                    <!-- CARD 1: PETITIONS FILED -->
+                    <article class="stat-card">
+                        <p class="stat-label">
+                            Petitions filed
+                        </p>
+                        <p class="stat-number">
+                            10
+                        </p>
+                        <p class="stat-note">
+                            Across the institution
+                        </p>
+                    </article>
+
+                    <!-- CARD 2: AWAITING RESOLUTION -->
+                    <article class="stat-card">
+                        <p class="stat-label">
+                            Awaiting resolution
+                        </p>
+                        <p class="stat-number">
+                            7
+                        </p>
+                        <p class="stat-note">
+                            Active petitions
+                        </p>
+                    </article>
+
+                    <!-- CARD 3: RESOLVED PETITIONS -->
+                    <article class="stat-card">
+                        <p class="stat-label">
+                            Resolved petitions
+                        </p>
+                        <p class="stat-number success-number">
+                            3
+                        </p>
+                        <p class="stat-note">
+                            Resolved or closed
+                        </p>
+                    </article>
+
+                    <!-- CARD 4: SLA COMPLIANCE -->
+                    <article class="stat-card">
+                        <p class="stat-label">
+                            SLA compliance
+                        </p>
+                        <p class="stat-number success-number">
+                            30%
+                        </p>
+                        <p class="stat-note">
+                            Petitions with no SLA breach
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- =========================================
+                 NICKNAME: PETITIONS SEARCH PANEL
+                 Contains the heading, refresh button and filters.
+            ========================================== -->
+            <section class="petitions-panel" id="work-queue">
+                <!-- NICKNAME: PANEL HEADING AND REFRESH -->
+                <div class="panel-heading-row">
+                    <div>
+                        <h2>Petitions in your scope</h2>
+                        <p>
+                            Only tickets you are authorized to access
+                            appear here.
+                        </p>
+                    </div>
+                    <button class="refresh-button" type="button">
+                        <span>↻</span>
+                        Refresh
+                    </button>
+                </div>
+                <!-- NICKNAME: SEARCH AND FILTER CONTROLS -->
+                <form class="filter-form" action="#work-queue" method="get">
+                    <!-- SEARCH BY TITLE -->
+                    <label class="visually-hidden" for="petition-search">
+                        Search by title
+                    </label>
+                    <input
+                        id="petition-search"
+                        name="title"
+                        type="search"
+                        placeholder="Search by title..."
+                    >
+                    <!-- STATUS DROPDOWN -->
+                    <label class="visually-hidden" for="status-filter">
+                        Filter by status
+                    </label>
+                    <select id="status-filter" name="status">
+                        <option value="all">
+                            All statuses
+                        </option>
+                        <option value="open">
+                            Open
+                        </option>
+                        <option value="pending">
+                            Pending
+                        </option>
+                        <option value="resolved">
+                            Resolved
+                        </option>
+                        <option value="closed">
+                            Closed
+                        </option>
+                    </select>
+
+                    <!-- CATEGORY DROPDOWN -->
+                    <label class="visually-hidden" for="category-filter">
+                        Filter by category
+                    </label>
+                    <select id="category-filter" name="category">
+                        <option value="all">
+                            All categories
+                        </option>
+                        <option value="academics">
+                            Academics
+                        </option>
+                        <option value="facilities">
+                            Facilities
+                        </option>
+                        <option value="administration">
+                            Administration
+                        </option>
+                        <option value="other">
+                            Other
+                        </option>
+                    </select>
+
+                    <!-- SEARCH BUTTON -->
+                    <button class="search-button" type="submit">
+                        Search
+                    </button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
