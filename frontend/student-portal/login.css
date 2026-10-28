@@ -261,3 +261,28 @@ body {
         justify-self: stretch;
     }
 }
+
+@media (max-width: 600px) {
+    body {
+        padding: 16px;
+    }
+
+    .login-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    input {
+        width: 100%;
+    }
+}

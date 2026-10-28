@@ -1,9 +1,17 @@
 
 import express from "express";
-import complaintRoutes from "./routes/complaintRoutes.js";
 import mongoose from "mongoose";
 import { fileURLToPath } from "node:url";
+
 import authRoutes from "./routes/authRoutes.js";
+import complaintRoutes from "./routes/complaintRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
+
+import Notification from "./models/notification.js";
+
+import {
+    startOverdueChecker
+} from "./services/notifications.js";
 
 const app = express();
 
@@ -11,30 +19,57 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use("/api/auth/", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use("/api/complaints", complaintRoutes);
 
-const frontendPath = fileURLToPath(
-    new URL("../frontend/student-portal", import.meta.url)
+app.use("/api/notifications", notificationRoutes);
+
+const studentPages = fileURLToPath(
+    new URL("../frontend/student-portal/", import.meta.url)
 );
 
-app.use(express.static(frontendPath));
+const frontendRoot = fileURLToPath(
+    new URL("../frontend/", import.meta.url)
+);
+
+app.use(express.static(studentPages));
+
+app.use(express.static(frontendRoot));
 
 app.get("/", (req, res) => {
     res.send("Vishanti Backend is running!");
 });
 
-async function startServer(){
-    try{
-        await mongoose.connect(process.env.MONGODB_URI, { dbName: "Vishanti" });
-        console.log("Mongdb connected successfully!!!");
+async function startServer() {
+    try {
+        await mongoose.connect(
+            process.env.MONGODB_URI,
+            {
+                dbName: "Vishanti"
+            }
+        );
 
-        app.listen(PORT,()=>{
-            console.log(`Server is running on port ${PORT}`);
+        await Notification.init();
+
+        console.log(
+            "MongoDB connected successfully"
+        );
+
+        app.listen(PORT, () => {
+            console.log(
+                `Server running on http://localhost:${PORT}`
+            );
+
+            startOverdueChecker();
         });
-    } catch(error){
-        console.log("MongoDB connection failed..",error.message);
+
+    } catch (error) {
+        console.error(
+            "Server startup failed:",
+            error
+        );
+
         process.exit(1);
     }
 }

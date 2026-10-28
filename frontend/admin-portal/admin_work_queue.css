@@ -532,3 +532,25 @@
         align-items: flex-start;
     }
 }
+
+.queue-page .priority-form {
+    margin: 20px 0;
+}
+
+.queue-page .sla-overdue {
+    color: #c05252;
+    font-weight: 700;
+}
+
+.queue-page .priority-medium::before {
+    color: #d9a441;
+}
+
+.queue-page .priority-low::before {
+    color: #63a787;
+}
+
+.queue-page .save-update:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

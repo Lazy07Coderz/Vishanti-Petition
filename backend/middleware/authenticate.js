@@ -1,7 +1,7 @@
 
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import User from "../models/User.js";
+import User from "../models/user.js";
 
 export default async function authenticate(req, res, next) {
     const authorization = req.get("Authorization");
@@ -12,13 +12,15 @@ export default async function authenticate(req, res, next) {
         });
     }
 
-    const token = authorization.slice(7);
+    const token = authorization.slice(7).trim();
 
     try {
         const decoded = jwt.verify(
             token,
             process.env.JWT_SECRET,
-            { algorithms: ["HS256"] }
+            {
+                algorithms: ["HS256"]
+            }
         );
 
         if (!mongoose.isValidObjectId(decoded.sub)) {
@@ -27,7 +29,9 @@ export default async function authenticate(req, res, next) {
             });
         }
 
-        const user = await User.findById(decoded.sub);
+        const user = await User.findById(decoded.sub)
+            .select("name email role")
+            .lean();
 
         if (!user) {
             return res.status(401).json({
@@ -36,26 +40,28 @@ export default async function authenticate(req, res, next) {
         }
 
         req.user = {
-            id: user.id,
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
             role: user.role
         };
 
-        next();
+        return next();
 
     } catch (error) {
-        if (
-            error.name === "JsonWebTokenError" ||
-            error.name === "TokenExpiredError" ||
-            error.name === "NotBeforeError"
-        ) {
+        if ([
+            "JsonWebTokenError",
+            "TokenExpiredError",
+            "NotBeforeError"
+        ].includes(error.name)) {
             return res.status(401).json({
                 message: "Invalid or expired token"
             });
         }
 
-        console.error(error);
+        console.error("Authentication failed:", error);
 
-        res.status(500).json({
+        return res.status(500).json({
             message: "Authentication failed"
         });
     }

@@ -1,165 +1,214 @@
 
-const signinTab = document.querySelector("#signin-tab");
-const signupTab = document.querySelector("#signup-tab");
+(() => {
+    "use strict";
 
-const formHeading = document.querySelector("#form-heading");
-const formDescription = document.querySelector("#form-description");
+    const byId = id => document.getElementById(id);
 
-const signupFields = document.querySelector("#signup-fields");
-const nameInput = document.querySelector("#name");
-const emailInput = document.querySelector("#email");
-const passwordInput = document.querySelector("#password");
+    const signinTab = byId("signin-tab");
+    const signupTab = byId("signup-tab");
+    const formHeading = byId("form-heading");
+    const formDescription = byId("form-description");
+    const signupFields = byId("signup-fields");
 
-const submitButton = document.querySelector("#submit-button");
-const authForm = document.querySelector("#auth-form");
-const formMessage = document.querySelector("#form-message");
+    const nameInput = byId("name");
+    const emailInput = byId("email");
+    const passwordInput = byId("password");
 
-let isSignup = false;
+    const submitButton = byId("submit-button");
+    const authForm = byId("auth-form");
+    const formMessage = byId("form-message");
 
-signinTab.addEventListener("click", function() {
-    isSignup = false;
+    let mode = "signin";
+    let busy = false;
 
-    signinTab.classList.add("active");
-    signupTab.classList.remove("active");
+    function setMode(nextMode) {
+        if (busy) return;
 
-    formHeading.textContent = "Welcome to your sanctum.";
-    formDescription.textContent =
-        "Sign in to manage petitions and follow their progress.";
+        mode = nextMode;
 
-    signupFields.hidden = true;
-    nameInput.required = false;
+        const isSignup = mode === "signup";
 
-    passwordInput.autocomplete = "current-password";
-    passwordInput.removeAttribute("minlength");
+        signinTab.classList.toggle("active", !isSignup);
+        signupTab.classList.toggle("active", isSignup);
 
-    submitButton.textContent = "Enter your dashboard →";
-    formMessage.textContent = "";
-});
+        signinTab.setAttribute(
+            "aria-pressed",
+            String(!isSignup)
+        );
 
-signupTab.addEventListener("click", function() {
-    isSignup = true;
+        signupTab.setAttribute(
+            "aria-pressed",
+            String(isSignup)
+        );
 
-    signupTab.classList.add("active");
-    signinTab.classList.remove("active");
+        formHeading.textContent = isSignup
+            ? "Create your account."
+            : "Welcome to your sanctum.";
 
-    formHeading.textContent = "Create your account.";
-    formDescription.textContent =
-        "Join your campus community and make your voice heard.";
+        formDescription.textContent = isSignup
+            ? "Join your campus community and make your voice heard."
+            : "Sign in to manage petitions and follow their progress.";
 
-    signupFields.hidden = false;
-    nameInput.required = true;
+        signupFields.hidden = !isSignup;
+        nameInput.required = isSignup;
 
-    passwordInput.autocomplete = "new-password";
-    passwordInput.minLength = 8;
+        passwordInput.autocomplete = isSignup
+            ? "new-password"
+            : "current-password";
 
-    submitButton.textContent = "Create account →";
-    formMessage.textContent = "";
-});
+        if (isSignup) {
+            passwordInput.minLength = 8;
+        } else {
+            passwordInput.removeAttribute("minlength");
+        }
 
-signinTab.click();
+        submitButton.textContent = isSignup
+            ? "Create account →"
+            : "Enter your dashboard →";
 
-authForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
+        formMessage.textContent = "";
+    }
 
-    formMessage.textContent = "";
+    function redirectByRole(role) {
+        if (role === "STUDENT") {
+            location.replace("/dashboard.html");
 
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
-    const submittingSignup = isSignup;
+        } else if (role === "ADMIN") {
+            location.replace(
+                "/admin-portal/admin_overview.html"
+            );
 
-    let url;
-    let userData;
+        } else {
+            throw new Error("Unknown account role");
+        }
+    }
 
-    if (submittingSignup) {
+    signinTab.addEventListener(
+        "click",
+        () => setMode("signin")
+    );
+
+    signupTab.addEventListener(
+        "click",
+        () => setMode("signup")
+    );
+
+    authForm.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        if (busy) return;
+
+        formMessage.textContent = "";
+
+        const isSignup = mode === "signup";
+        const email = emailInput.value.trim().toLowerCase();
+        const password = passwordInput.value;
         const name = nameInput.value.trim();
 
-        if (name.length < 2) {
+        if (isSignup && name.length < 2) {
             formMessage.textContent =
                 "Name must contain at least 2 characters.";
             return;
         }
 
-        if (password.length < 8) {
+        if (isSignup && (
+            password.length < 8 ||
+            new TextEncoder().encode(password).length > 72
+        )) {
             formMessage.textContent =
-                "Password must contain at least 8 characters.";
+                "Password must be at least 8 characters and at most 72 UTF-8 bytes.";
             return;
         }
 
-        url = "/api/auth/register";
+        busy = true;
 
-        userData = {
-            name,
-            email,
-            password
-        };
+        submitButton.disabled = true;
+        signinTab.disabled = true;
+        signupTab.disabled = true;
 
-    } else {
-        url = "/api/auth/login";
+        submitButton.textContent = isSignup
+            ? "Creating account..."
+            : "Signing in...";
 
-        userData = {
-            email,
-            password
-        };
-    }
+        try {
+            const response = await fetch(
+                isSignup
+                    ? "/api/auth/register"
+                    : "/api/auth/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-    submitButton.disabled = true;
-    signinTab.disabled = true;
-    signupTab.disabled = true;
-
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userData)
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(
-                data.message || "Authentication failed"
+                    body: JSON.stringify(
+                        isSignup
+                            ? { name, email, password }
+                            : { email, password }
+                    )
+                }
             );
-        }
 
-        if (submittingSignup) {
-            authForm.reset();
-            signinTab.click();
+            const data = await response.json()
+                .catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message ||
+                    `Request failed (${response.status})`
+                );
+            }
+
+            if (isSignup) {
+                authForm.reset();
+                mode = "signin";
+
+                formMessage.textContent =
+                    "Registration successful! Please sign in.";
+
+            } else {
+                if (
+                    !data.token ||
+                    !["STUDENT", "ADMIN"].includes(data.user?.role)
+                ) {
+                    throw new Error("Invalid login response");
+                }
+
+                sessionStorage.setItem(
+                    "authToken",
+                    data.token
+                );
+
+                redirectByRole(data.user.role);
+            }
+
+        } catch (error) {
+            console.error("Authentication error:", error);
 
             formMessage.textContent =
-                "Registration successful! Please sign in.";
+                error.message || "Authentication failed.";
 
-        } else {
-            if (!data.token || !data.user?.role) {
-                throw new Error("Invalid login response.");
+        } finally {
+            busy = false;
+
+            submitButton.disabled = false;
+            signinTab.disabled = false;
+            signupTab.disabled = false;
+
+            if (isSignup && mode === "signin") {
+                setMode("signin");
+
+                formMessage.textContent =
+                    "Registration successful! Please sign in.";
+
+            } else {
+                submitButton.textContent =
+                    mode === "signup"
+                        ? "Create account →"
+                        : "Enter your dashboard →";
             }
-
-            if (!["STUDENT", "ADMIN"].includes(data.user.role)) {
-                throw new Error("Unknown user role.");
-            }
-
-            sessionStorage.setItem("authToken", data.token);
-
-            redirectByRole(data.user.role);
         }
+    });
 
-    } catch (error) {
-        formMessage.textContent = error.message;
-        console.error(error);
-
-    } finally {
-        submitButton.disabled = false;
-        signinTab.disabled = false;
-        signupTab.disabled = false;
-    }
-});
-
-function redirectByRole(role) {
-    if (role === "STUDENT") {
-        window.location.href = "dashboard.html";
-
-    } else if (role === "ADMIN") {
-        window.location.href = "admin.html";
-    }
-}
+    setMode("signin");
+})();

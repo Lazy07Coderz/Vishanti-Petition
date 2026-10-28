@@ -1,44 +1,53 @@
 
 import { Router } from "express";
 import bcrypt from "bcrypt";
-import { z } from "zod";
-import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import { z } from "zod";
+
+import User from "../models/user.js";
 import authenticate from "../middleware/authenticate.js";
 
 const router = Router();
 
 const registerSchema = z.object({
-    name: z.string().trim().min(2),
-    email: z.email(),
+    name: z.string().trim().min(2).max(120),
+
+    email: z.email().trim().toLowerCase(),
+
     password: z.string().min(8).refine(
         value => Buffer.byteLength(value, "utf8") <= 72,
         "Password is too long"
     )
 });
 
+const loginSchema = z.object({
+    email: z.email().trim().toLowerCase(),
+    password: z.string().min(1)
+});
+
 router.post("/register", async (req, res) => {
+    const parsed = registerSchema.safeParse(req.body);
+
+    if (!parsed.success) {
+        return res.status(400).json({
+            message: parsed.error.issues[0]?.message ||
+                "Invalid registration details"
+        });
+    }
+
     try {
-        const result = registerSchema.safeParse(req.body);
-
-        if (!result.success) {
-            return res.status(400).json({
-                message: result.error.issues[0].message
-            });
-        }
-
-        const { name, email, password } = result.data;
+        const { name, email, password } = parsed.data;
 
         const passwordHash = await bcrypt.hash(password, 12);
 
         const user = await User.create({
             name,
-            email: email.trim().toLowerCase(),
+            email,
             passwordHash,
             role: "STUDENT"
         });
 
-        res.status(201).json({
+        return res.status(201).json({
             message: "Student registered successfully",
             userId: user._id
         });
@@ -50,65 +59,57 @@ router.post("/register", async (req, res) => {
             });
         }
 
-        console.error(error);
+        console.error("Registration failed:", error);
 
-        res.status(500).json({
+        return res.status(500).json({
             message: "Registration failed"
         });
     }
 });
 
-
-const loginSchema = z.object({
-    email: z.email(),
-    password: z.string().min(1)
-});
-
 router.post("/login", async (req, res) => {
-    try {
-        const result = loginSchema.safeParse(req.body);
+    const parsed = loginSchema.safeParse(req.body);
 
-        if (!result.success) {
-            return res.status(400).json({
-                message: "Invalid login input"
-            });
-        }
-
-        const { email, password } = result.data;
-
-        const user = await User.findOne({
-            email: email.trim().toLowerCase()
+    if (!parsed.success) {
+        return res.status(400).json({
+            message: "Enter a valid email and password"
         });
+    }
 
-        if (!user) {
+    try {
+        const { email, password } = parsed.data;
+
+        const user = await User.findOne({ email });
+
+        if (
+            !user ||
+            !await bcrypt.compare(password, user.passwordHash)
+        ) {
             return res.status(401).json({
                 message: "Invalid email or password"
             });
         }
 
-        const isMatch = await bcrypt.compare(
-            password,
-            user.passwordHash
-        );
-
-        if (!isMatch) {
-            return res.status(401).json({
-                message: "Invalid email or password"
-            });
+        if (!process.env.JWT_SECRET) {
+            throw new Error("JWT_SECRET is not configured");
         }
 
         const token = jwt.sign(
-            { role: user.role },
+            {
+                role: user.role
+            },
             process.env.JWT_SECRET,
             {
                 subject: user._id.toString(),
-                expiresIn: "1h"
+                expiresIn: "1h",
+                algorithm: "HS256"
             }
         );
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Login successful",
             token,
+
             user: {
                 id: user._id,
                 name: user.name,
@@ -118,20 +119,18 @@ router.post("/login", async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Login failed:", error);
 
-        res.status(500).json({
+        return res.status(500).json({
             message: "Login failed"
         });
     }
 });
-
 
 router.get("/me", authenticate, (req, res) => {
     res.status(200).json({
         user: req.user
     });
 });
-
 
 export default router;
