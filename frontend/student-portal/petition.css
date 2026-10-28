@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    background-color: #f5f6fa;
+}
+
+h1 {
+    background-color: #292144;
+    color: white;
+    padding: 16px 20px;
+    border-radius: 8px;
+}
+
+#petition-form {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#petition-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-height: 120px;
+}
+
+#petition-form textarea {
+    resize: vertical;
+}
+
+#petition-form button {
+    background-color: #2457c5;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#petition-form button:hover {
+    background-color: #19449e;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+#petition-form label {
+    font-weight: bold;
+}
+
+#petition-form select {
+    height: 42px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
