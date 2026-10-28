@@ -19,6 +19,31 @@ router.get("/", async (req, res) => {
     }
 });
 
+
+router.get("/mine", authenticate, async (req, res) => {
+    try {
+        if (req.user.role !== "STUDENT") {
+            return res.status(403).json({
+                message: "Student access required"
+            });
+        }
+
+        const complaints = await Complaint.find({
+            student: req.user.id
+        }).sort({ createdAt: -1 });
+
+        res.status(200).json(complaints);
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Failed to fetch your petitions"
+        });
+    }
+});
+
+
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
