@@ -11,6 +11,10 @@ const complaintSchema = new mongoose.Schema({
         enum: ["Academics","Hostel & Facilities","Library","Other"],
         required: true
     },
+    priority:{
+        enum: ["High","Medium","Low"],
+        required:true
+    },
     anonymous: {
         type: Boolean,
         default: false
