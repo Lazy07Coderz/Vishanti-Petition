@@ -38,7 +38,7 @@ app.use(express.static(studentPages));
 app.use(express.static(frontendRoot));
 
 app.get("/", (req, res) => {
-    res.send("Vishanti Backend is running!");
+    res.redirect("/login.html");
 });
 
 async function startServer() {
