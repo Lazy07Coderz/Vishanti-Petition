@@ -7,15 +7,31 @@ let petitions = [];
 
 async function loadPetitions() {
     try {
-        const response = await fetch("/api/complaints");
+        const token = sessionStorage.getItem("authToken");
+
+        if (!token) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const response = await fetch("/api/complaints/mine", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+            sessionStorage.removeItem("authToken");
+            window.location.href = "login.html";
+            return;
+        }
 
         if (!response.ok) {
-            throw new Error("Failed to load petitions");
+            throw new Error("Failed to load your petitions.");
         }
 
         const data = await response.json();
-        console.log("API complaint count:", data.length);
-        console.log("API complaints:", data);
+
         petitions = data.map(function(complaint) {
             return {
                 id: complaint._id,
