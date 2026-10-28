@@ -28,7 +28,20 @@ const complaintSchema = new mongoose.Schema({
         type: String,
         enum: ["FILED","ASSIGNED","IN_REVIEW","RESOLVED","CLOSED"],
         default: "FILED"
+    },
+    student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    
+    assignedTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null
     }
+
+
 }, { timestamps: true });
 
 const Complaint = mongoose.model("Complaint", complaintSchema);
