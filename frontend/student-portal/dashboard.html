@@ -1,55 +1,287 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishanti Petition</title>
+
+    <title>Student Dashboard | Vishanti Petition</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar nav {
+            flex: 1;
+        }
+
+        .logout-button {
+            width: 100%;
+            padding: 12px;
+            background: #44365f;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .logout-button:hover {
+            background: #624e83;
+        }
+
+        .dashboard-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .refresh-button {
+            background: #292144;
+            color: white;
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .refresh-button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .dashboard-feedback {
+            color: #827d89;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+        .petition-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        a.petition-item {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .petition-item:focus-visible {
+            outline: 3px solid #624e83;
+            outline-offset: 3px;
+        }
+
+        .petition-details {
+            min-width: 0;
+        }
+
+        .petition-details h3 {
+            overflow-wrap: anywhere;
+        }
+
+        .petition-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .petition-priority {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .sla-countdown {
+            font-size: 12px;
+            color: #514271;
+            font-weight: bold;
+        }
+
+        .sla-overdue {
+            color: #c0392b;
+        }
+
+        .empty-petitions {
+            display: block;
+            cursor: default;
+        }
+
+        .new-petition-link {
+            display: inline-block;
+            padding: 10px 14px;
+            color: white;
+            background: #514271;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 1000px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            main {
+                margin-left: 0;
+                padding: 20px;
+                min-height: 100vh;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .petition-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .petition-right {
+                align-items: flex-start;
+            }
+        }
+    </style>
+
+    <script src="script.js" defer></script>
 </head>
+
 <body>
+
     <aside class="sidebar">
-    <h2> Vishanti Petition</h2>
-    <p>LAZYCODERZ / 2026</p>
-    <h4>YOUR SANCTUM</h4>
-    <nav>
-        <a href="#overview">Overview</a>
-        <a href="#my-petitions">My Petitions</a>
-        <a href="file-petition.html">File a Petition</a>
-        <a href="notifications.html">Notifications</a>
-    </nav>
-</aside>
-<main>
-<section>
-<h1 class="welcome-heading">Good to see you, Student.</h1>
-<p class="welcome-subtitle">A little clarity. A little accountability. A better campus.</p>
-</section>
-<div class="welcome-banner" id="overview">
-    <h3>Every concern deserves to be heard.</h3>
-    <p>File confidently, track transparently, and follow up when it matters.</p>
-</div>
-<h4 class="section-heading">YOUR PETITION SNAPSHOT</h4>
-<div class="stats-container">
-<div class="stat-card">
-    <p>Total petitions</p>
-    <h2 id="total-petitions">0</h2>
-</div>
-<div class="stat-card">
-    <p>Under review</p>
-    <h2 id="under-review">0</h2>
-</div>
-<div class="stat-card">
-    <p>Resolved</p>
-    <h2 id="resolved-count">0</h2>
-</div>
-<div class="stat-card">
-    <p>Awaiting action</p>
-    <h2 id="awaiting-action">0</h2>
-</div>
-</div>
-<h4 class="section-heading">RECENT PETITIONS</h4>
-<div class="petition-list" id="my-petitions">
-</div>
-</main>
-<script src="script.js"></script>
+        <h2>Vishanti Petition</h2>
+
+        <p>LAZYCODERZ / 2026</p>
+
+        <h4>YOUR SANCTUM</h4>
+
+        <nav>
+            <a href="#overview">Overview</a>
+
+            <a href="#my-petitions">
+                My Petitions
+            </a>
+
+            <a href="file-petition.html">
+                File a Petition
+            </a>
+
+            <a href="notifications.html">
+                Notifications
+            </a>
+        </nav>
+
+        <button
+            type="button"
+            class="logout-button"
+            id="student-logout"
+        >
+            Sign out
+        </button>
+    </aside>
+
+    <main>
+
+        <section>
+            <h1 class="welcome-heading">
+                Good to see you, Student.
+            </h1>
+
+            <p class="welcome-subtitle">
+                A little clarity. A little accountability.
+                A better campus.
+            </p>
+        </section>
+
+        <div class="welcome-banner" id="overview">
+            <h3>Every concern deserves to be heard.</h3>
+
+            <p>
+                File confidently, track transparently,
+                and follow up when it matters.
+            </p>
+        </div>
+
+        <div class="dashboard-toolbar">
+            <h4 class="section-heading">
+                INSTITUTION-WIDE PETITION SNAPSHOT
+            </h4>
+
+            <button
+                id="refresh-dashboard"
+                type="button"
+                class="refresh-button"
+            >
+                ↻ Refresh
+            </button>
+        </div>
+
+        <div class="stats-container">
+
+            <div class="stat-card">
+                <p>Total petitions</p>
+                <h2 id="total-petitions">—</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Under review</p>
+                <h2 id="under-review">—</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Resolved / Closed</p>
+                <h2 id="resolved-count">—</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Awaiting action</p>
+                <h2 id="awaiting-action">—</h2>
+            </div>
+
+        </div>
+
+        <p
+            class="dashboard-feedback"
+            id="stats-feedback"
+            role="status"
+            aria-live="polite"
+        ></p>
+
+        <h4 class="section-heading">
+            MY PETITIONS
+        </h4>
+
+        <p class="welcome-subtitle">
+            Only petitions submitted by your account
+            are displayed below.
+        </p>
+
+        <p
+            class="dashboard-feedback"
+            id="petitions-feedback"
+            role="status"
+            aria-live="polite"
+        ></p>
+
+        <div class="petition-list" id="my-petitions">
+        </div>
+
+    </main>
+
 </body>
 </html>

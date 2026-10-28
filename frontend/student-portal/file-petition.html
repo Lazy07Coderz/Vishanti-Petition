@@ -1,62 +1,160 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>File a Petition | The Vishanti Petition</title>
+
     <link rel="stylesheet" href="petition.css">
+
+    <style>
+        .back-to-dashboard {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #2457c5;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .back-to-dashboard:hover {
+            text-decoration: underline;
+        }
+
+        .priority-information {
+            padding: 12px;
+            background-color: #e9edf8;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        #petition-message {
+            margin-top: 12px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        #petition-message a {
+            color: #2457c5;
+        }
+
+        #petition-form button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
+
 <body>
-<h1>File a Petition</h1>
-<p>Describe your concern so it can be reviewed.</p>
-<form id="petition-form">
 
-    <label for="petition-title">Petition Title</label>
-    <input
-        type="text"
-        id="petition-title"
-        name="title"
-        maxlength="100"
-        required
-    >
+    <a href="dashboard.html" class="back-to-dashboard">
+        ← Back to Dashboard
+    </a>
 
-    <label for="petition-category">Category</label>
-    <select id="petition-category" name="category" required>
-        <option value="">Select a category</option>
-        <option value="Academics">Academics</option>
-        <option value="Hostel & Facilities">Hostel & Facilities</option>
-        <option value="Library">Library</option>
-        <option value="Other">Other</option>
-    </select>
+    <h1>File a Petition</h1>
 
-    <div>
-    <input
-        type="checkbox"
-        id="anonymous"
-        name="anonymous"
-    >
-    <label for="anonymous">Submit anonymously</label>
-</div>
+    <p>
+        Describe your concern so it can be reviewed.
+    </p>
 
-<label for="petition-evidence">Supporting Evidence (optional)</label>
-<input
-    type="file"
-    id="petition-evidence"
-    name="evidence"
-    accept="image/*,.pdf"
->
+    <form id="petition-form" enctype="multipart/form-data">
 
-    <label for="petition-description">Description</label>
-    <textarea
-        id="petition-description"
-        name="description"
-        maxlength="2000"
-        required
-    ></textarea>
+        <label for="petition-title">
+            Petition Title
+        </label>
 
-    <button type="submit">Submit Petition</button>
+        <input
+            type="text"
+            id="petition-title"
+            name="title"
+            maxlength="100"
+            required
+        >
 
-</form>
-<script src="petition.js"></script>
+        <label for="petition-category">
+            Category
+        </label>
+
+        <select
+            id="petition-category"
+            name="category"
+            required
+        >
+            <option value="">Select a category</option>
+            <option value="Academics">Academics</option>
+            <option value="Hostel &amp; Facilities">
+                Hostel &amp; Facilities
+            </option>
+            <option value="Library">Library</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <div class="priority-information">
+            <strong>Petition Priority</strong>
+
+            <p>
+                New petitions begin with Medium priority
+                and a 48-hour SLA. Administrators can
+                change the priority after reviewing
+                your concern.
+            </p>
+        </div>
+
+        <div>
+            <input
+                type="checkbox"
+                id="anonymous"
+                name="anonymous"
+            >
+
+            <label for="anonymous">
+                Submit anonymously
+            </label>
+        </div>
+
+        <label for="petition-evidence">
+            Supporting Evidence (optional)
+        </label>
+
+        <input
+            type="file"
+            id="petition-evidence"
+            name="evidence"
+            accept=".jpg,.jpeg,.png,.pdf"
+        >
+
+        <small>
+            Accepted formats: JPG, PNG, PDF.
+            Maximum file size: 5 MB.
+        </small>
+
+        <label for="petition-description">
+            Description
+        </label>
+
+        <textarea
+            id="petition-description"
+            name="description"
+            maxlength="2000"
+            rows="6"
+            required
+        ></textarea>
+
+        <button type="submit" id="submit-petition">
+            Submit Petition
+        </button>
+
+        <p
+            id="petition-message"
+            role="status"
+            aria-live="polite"
+        ></p>
+
+    </form>
+
+    <script src="petition.js"></script>
+
 </body>
 </html>

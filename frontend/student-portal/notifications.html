@@ -1,21 +1,164 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications | The Vishanti Petition</title>
-    <link rel="stylesheet" href="notifications.css">
+    <title>Student Notifications | Vishanti Petition</title>
+
+    <link rel="stylesheet" href="/admin-portal/admin_overview.css">
+    <link rel="stylesheet" href="/admin-portal/admin_work_queue.css">
+    <link rel="stylesheet" href="/admin-portal/admin_notifications.css">
+
+    <style>
+        .notification-actions-inline {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .notification-tools {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+    </style>
+
+    <script src="/admin-portal/admin_notifications.js" defer></script>
 </head>
-<body>
-    <h1>Notifications</h1>
-    <p>Stay updated on your petitions and their progress.</p>
-    <p>Unread notifications: <span id="unread-count">0</span></p>
-    <div class="notification-actions">
-        <button id="mark-all-read">Mark all as read</button>
+
+<body class="queue-page notifications-page" data-view="student">
+    <div class="app-shell">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-text">
+                    <h2>Vishanti Petition</h2>
+                    <p>LAZY CODERZ / 2026</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Student navigation">
+                <p class="sidebar-section-label">
+                    YOUR SANCTUM
+                </p>
+
+                <a class="nav-link" href="/dashboard.html">
+                    <span class="nav-icon">▦</span>
+                    Overview / My Petitions
+                </a>
+
+                <a class="nav-link" href="/file-petition.html">
+                    <span class="nav-icon">✎</span>
+                    File a Petition
+                </a>
+
+                <a
+                    class="nav-link active"
+                    href="/notifications.html"
+                    aria-current="page"
+                >
+                    <span class="nav-icon">🔔</span>
+                    Notifications
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-motto">
+                    <h3>Your voice matters.</h3>
+                    <p>
+                        Track progress. Stay informed.
+                        Make your campus better.
+                    </p>
+                </div>
+
+                <p class="sidebar-credit">
+                    LAZY CODERZ · WEBSTER 2026
+                </p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="breadcrumb">
+                    Your sanctum /
+                    <strong>Notifications</strong>
+                </div>
+
+                <div class="account-area">
+                    <div class="avatar">S</div>
+
+                    <div class="account-name">
+                        <strong>Student Portal</strong>
+                        <span>Student</span>
+                    </div>
+
+                    <button
+                        id="sign-out"
+                        class="sign-out-button"
+                        type="button"
+                    >
+                        Sign out
+                    </button>
+                </div>
+            </header>
+
+            <section
+                class="notification-heading"
+                aria-labelledby="notifications-heading"
+            >
+                <div class="welcome-section">
+                    <p class="eyebrow">
+                        YOUR VOICE, ON RECORD
+                    </p>
+
+                    <h1 id="notifications-heading">
+                        You're in the loop.
+                    </h1>
+
+                    <p class="welcome-description">
+                        Updates about the petitions you've filed.
+                    </p>
+
+                    <p class="welcome-description">
+                        Unread:
+                        <strong id="unread-count">0</strong>
+                    </p>
+                </div>
+
+                <div class="notification-tools">
+                    <button
+                        type="button"
+                        class="mark-all-button"
+                        id="refresh-notifications"
+                    >
+                        ↻ Refresh
+                    </button>
+
+                    <button
+                        type="button"
+                        class="mark-all-button"
+                        id="mark-all-read"
+                    >
+                        Mark all read
+                    </button>
+                </div>
+            </section>
+
+            <p
+                id="notification-feedback"
+                class="notification-feedback"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <section aria-label="Your notifications">
+                <ul
+                    class="notification-list"
+                    id="notification-list"
+                ></ul>
+            </section>
+        </main>
     </div>
-
-    <div id="notification-list"></div>
-
-    <script src="notifications.js"></script>
 </body>
 </html>
